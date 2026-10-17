@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* shadcn/ui 와 같은 이름의 색상 토큰 — 이후 shadcn 컴포넌트를 추가해도 그대로 어울립니다. */
+:root {
+  --radius: 0.75rem;
+  --background: #fbfbf9;
+  --foreground: #1d1c1a;
+  --card: #ffffff;
+  --card-foreground: #1d1c1a;
+  --popover: #ffffff;
+  --popover-foreground: #1d1c1a;
+  --primary: #2f5244;
+  --primary-foreground: #f7faf8;
+  --secondary: #f2f1ed;
+  --secondary-foreground: #1d1c1a;
+  --muted: #f2f1ed;
+  --muted-foreground: #6c6862;
+  --accent: #e7efea;
+  --accent-foreground: #213d31;
+  --destructive: #b5392f;
+  --border: #e7e4de;
+  --input: #dcd8d1;
+  --ring: #5e8a76;
+  --sidebar: #f5f4f0;
+  --highlight: #c4892a;
+  color-scheme: light;
+}
+
+.dark {
+  --background: #141413;
+  --foreground: #ecebe6;
+  --card: #1c1c1a;
+  --card-foreground: #ecebe6;
+  --popover: #21211f;
+  --popover-foreground: #ecebe6;
+  --primary: #93bfa9;
+  --primary-foreground: #122219;
+  --secondary: #262624;
+  --secondary-foreground: #ecebe6;
+  --muted: #262624;
+  --muted-foreground: #a19d95;
+  --accent: #23302a;
+  --accent-foreground: #c4e0d1;
+  --destructive: #e46f64;
+  --border: #2f2e2b;
+  --input: #3a3935;
+  --ring: #93bfa9;
+  --sidebar: #181816;
+  --highlight: #e0aa4c;
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-highlight: var(--highlight);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-noto-sans-kr), "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-noto-serif-kr), "AppleMyungjo", "Batang", ui-serif, serif;
+
+  --animate-rise: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
