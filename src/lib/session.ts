@@ -12,7 +12,10 @@ export type SessionInfo = { user: CurrentUser; sessionId: string };
 
 /** 현재 요청의 로그인 세션 (요청 단위 캐시 — 다른 사용자와 공유되지 않음) */
 export const getSessionInfo = cache(async (): Promise<SessionInfo | null> => {
-  const result = await getAuth().api.getSession({ headers: await headers() });
+  // 요청 헤더를 "먼저" 읽어야 Next.js 가 이 화면을 빌드 때 미리 만들지 않고 요청마다 그립니다.
+  // (빌드 단계에서 인증 비밀키·DB 주소를 요구하지 않게 됨 — 개인 데이터 화면이 캐시되는 것도 방지)
+  const requestHeaders = await headers();
+  const result = await getAuth().api.getSession({ headers: requestHeaders });
   if (!result) return null;
   return {
     sessionId: result.session.id,
